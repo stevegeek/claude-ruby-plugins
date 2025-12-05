@@ -1,5 +1,12 @@
 {
   "name": "stevegeek-marketplace",
   "description": "Marketplace for Ruby related skills by Stephen",
-  "plugins": ["ruby-rbs"]
+  "plugins": [
+    {
+      "name": "ruby-rbs",
+      "source": "./plugins/ruby-rbs",
+      "description": "Skills, commands, and agents for writing Ruby RBS type signatures",
+      "version": "1.0.0"
+    }
+  ]
 }
