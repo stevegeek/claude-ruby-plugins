@@ -48,19 +48,27 @@ class Box[T]
 end
 ```
 
-### 2. Untyped Elimination
+### 2. Untyped Elimination (High Priority)
 
-Find `untyped` that can be replaced with concrete types:
+Every instance of `untyped` should be scrutinized. The goal is to minimize `untyped` usage—treat each one as technical debt.
 
-**Safe replacements:**
-- Config hashes → `Hash[Symbol, String | Integer | bool]`
-- Callbacks → `^(ArgType) -> ReturnType`
-- JSON data → Type alias for JSON structure
+**Always try to replace with:**
+- **Concrete types** - When the actual type is known
+- **Unions** - `String | Integer | Symbol` instead of `untyped`
+- **Type aliases** - `type json_value = String | Integer | ...` for complex unions
+- **Generics** - `[T] (T) -> T` for polymorphic code
+- **Interfaces** - `_Reader`, `_ToS` for duck typing
+- **Config hashes** → `Hash[Symbol, String | Integer | bool]`
+- **Callbacks** → `^(ArgType) -> ReturnType`
 
-**Keep untyped when:**
-- Truly dynamic (metaprogramming, eval)
-- External data with unknown shape
-- Gradual typing placeholder (mark for future)
+**Only keep `untyped` when truly unavoidable:**
+- Metaprogramming (`define_method`, `method_missing`, `eval`)
+- External data from untrusted sources with genuinely unknown shape
+- When the code intentionally accepts absolutely any type
+
+**Flag for review:**
+- "Gradual typing placeholder" is not a valid long-term reason
+- If `untyped` is used for convenience, it should be replaced
 
 ### 3. Union vs Supertype
 

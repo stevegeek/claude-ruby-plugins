@@ -138,19 +138,25 @@ Keep the user informed:
 
 ### Type Quality
 
-- **Avoid `untyped`** - Use concrete types where possible
+- **Minimize `untyped`** - This is crucial. Always try concrete types, unions, interfaces, or generics first. `untyped` should be your last resort, not a convenience.
 - **Use generics** - For container classes and collections
-- **Consider interfaces** - For duck-typed parameters
+- **Consider interfaces** - For duck-typed parameters (e.g., `_Reader`, `_Writable`)
 - **Handle nil properly** - Use `?` suffix for optional types
+- **Prefer specific unions over `untyped`** - e.g., `String | Integer | Symbol` rather than `untyped`
 
-### Pragmatic Choices
+### When `untyped` is Acceptable
 
-Some code is hard to type. It's acceptable to:
-- Use `untyped` for metaprogramming or `eval`
-- Skip typing test files initially
-- Use broader types for truly dynamic code
+Only use `untyped` when you genuinely cannot determine the type:
+- **Metaprogramming** - `define_method`, `method_missing`, `eval`
+- **External data with unknown shape** - Arbitrary JSON from untrusted sources
+- **Truly polymorphic code** - Code that intentionally works with any type
 
-Document these decisions with comments.
+Even then, consider:
+- Can you narrow it with a type alias? `type json_value = String | Integer | ...`
+- Can you use generics instead? `[T] (T) -> T`
+- Can you use an interface? `_ToS` instead of `untyped`
+
+Document with a comment why `untyped` was necessary when you use it.
 
 ### Common Patterns
 

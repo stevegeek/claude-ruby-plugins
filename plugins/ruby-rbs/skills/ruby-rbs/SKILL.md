@@ -144,7 +144,7 @@ end
 ## Gradual Typing Strategy
 
 1. **Start with public APIs** - Type method signatures users call
-2. **Use `untyped` liberally** - Better than no types during migration
+2. **Avoid `untyped` where possible** - Prefer concrete types, unions, interfaces, or generics. Reserve `untyped` only for truly dynamic code (metaprogramming, `eval`, external data with unknown shape). When you must use `untyped`, treat it as technical debt to revisit.
 3. **Progress inward** - Add types to private methods over time
 4. **Add to CI early** - Catch regressions immediately
 

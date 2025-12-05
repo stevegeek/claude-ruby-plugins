@@ -22,9 +22,10 @@ end
 
 ```ruby
 class Processor
-  # @rbs @data: Hash[String, untyped]?
+  # Prefer specific value types over untyped when the structure is known
+  # @rbs @data: Hash[String, String | Integer | bool]?
 
-  #: () -> Hash[String, untyped]
+  #: () -> Hash[String, String | Integer | bool]
   def process!
     unless data = @data
       return {}
@@ -135,6 +136,8 @@ end
 
 ## Gradual Typing Strategy
 
+**Key principle:** Avoid `untyped` wherever possible. When adding types gradually, still aim for concrete types—just prioritize which code to type first.
+
 ### Phase 1: Public APIs
 
 ```ruby
@@ -144,9 +147,10 @@ class UserService
     User.find_by(id: id)
   end
 
-  # Leave complex internals untyped initially
+  # Even for "later" methods, add types when you can infer them
+  #: (User, Array[Action]) -> Result
   def complex_logic(user, history)
-    # TODO: Add types later
+    # Implementation
   end
 end
 ```
