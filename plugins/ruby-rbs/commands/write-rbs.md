@@ -1,19 +1,11 @@
 ---
 description: Write standalone RBS type signatures for Ruby files. Analyzes code, finds tests, traces types, and generates sig/*.rbs files.
-argument-hint: <file_path> - Path to Ruby file or directory to type
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - Bash
-  - Skill
+argument-hint: <file_path>
 ---
 
 # Write Standalone RBS Signatures
 
-You are writing RBS type signatures in standalone `.rbs` files for Ruby code.
+You are writing RBS type signatures in standalone `.rbs` files for the Ruby code at: $ARGUMENTS
 
 ## Process
 

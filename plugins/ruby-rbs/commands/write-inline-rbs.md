@@ -1,19 +1,11 @@
 ---
 description: Write inline RBS type annotations in Ruby source files using rbs-inline comment syntax.
-argument-hint: <file_path> - Path to Ruby file or directory to add inline types
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - Bash
-  - Skill
+argument-hint: <file_path>
 ---
 
 # Write Inline RBS Annotations
 
-You are adding inline RBS type annotations directly in Ruby source files using comment syntax.
+You are adding inline RBS type annotations directly in the Ruby source file at: $ARGUMENTS
 
 ## Process
 

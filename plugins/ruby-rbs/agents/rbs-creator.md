@@ -1,24 +1,8 @@
 ---
+name: rbs-creator
+description: Use this agent to write RBS type signatures for an entire codebase. Trigger when user asks to "add types to the codebase", "write RBS for everything", wants to "type the whole project", "add RBS signatures", or asks to set up RBS/Steep for a project from scratch. Examples - "Add RBS types to this codebase", "Set up type checking for this project", "Write type signatures for all my Ruby code"
+tools: Bash, Read, Edit, Write, Glob, Grep, Skill, AskUserQuestion
 model: sonnet
-tools:
-  - Bash
-  - Read
-  - Edit
-  - Write
-  - Glob
-  - Grep
-  - Skill
-  - AskUserQuestion
-whenToUse: |
-  Use this agent to write RBS type signatures for an entire codebase. Trigger when:
-  - User asks to "add types to the codebase", "write RBS for everything"
-  - User wants to "type the whole project", "add RBS signatures"
-  - User asks to set up RBS/Steep for a project from scratch
-
-  Examples:
-  - "Add RBS types to this codebase"
-  - "Set up type checking for this project"
-  - "Write type signatures for all my Ruby code"
 ---
 
 # RBS Creator Agent

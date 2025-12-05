@@ -1,24 +1,8 @@
 ---
+name: rbs-maintainer
+description: Use this agent to maintain and validate existing RBS type signatures. Trigger when user asks to "check RBS", "validate types", "review type signatures", "find RBS gaps", "update RBS", "fix type errors", after significant code changes that may affect type signatures, or when Steep is reporting errors that need investigation. Examples - "Check if the RBS signatures are up to date", "Run steep and fix any type errors", "Find methods that are missing type signatures", "Validate the RBS syntax in sig/"
+tools: Bash, Read, Edit, Glob, Grep, Skill
 model: sonnet
-tools:
-  - Bash
-  - Read
-  - Edit
-  - Glob
-  - Grep
-  - Skill
-whenToUse: |
-  Use this agent to maintain and validate existing RBS type signatures. Trigger when:
-  - User asks to "check RBS", "validate types", "review type signatures"
-  - User asks to "find RBS gaps", "update RBS", "fix type errors"
-  - After significant code changes that may affect type signatures
-  - When Steep is reporting errors that need investigation
-
-  Examples:
-  - "Check if the RBS signatures are up to date"
-  - "Run steep and fix any type errors"
-  - "Find methods that are missing type signatures"
-  - "Validate the RBS syntax in sig/"
 ---
 
 # RBS Maintainer Agent
