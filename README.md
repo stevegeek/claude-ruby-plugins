@@ -7,7 +7,7 @@ A Claude Code marketplace providing plugins for Ruby development.
 Add this marketplace to Claude Code:
 
 ```bash
-/plugin marketplace add stevegeek//claude-ruby-plugins
+/plugin marketplace add stevegeek/claude-ruby-plugins
 ```
 
 Or add to your project's `.claude/settings.json`:
@@ -15,7 +15,7 @@ Or add to your project's `.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": [
-    "stevegeek//claude-ruby-plugins"
+    "stevegeek/claude-ruby-plugins"
   ]
 }
 ```
