@@ -20,17 +20,19 @@ RBS is Ruby's official type signature language, introduced with Ruby 3.0. It des
 Add this repository as a marketplace and install the plugin:
 
 ```bash
-# Add the marketplace
-claude /plugin marketplace add https://github.com/stevegeek/claude-ruby-plugin
+# Add the marketplace (use either format)
+/plugin marketplace add stevegeek/claude-ruby-plugin
+# or
+/plugin marketplace add https://github.com/stevegeek/claude-ruby-plugin
 
 # Install the plugin
-claude /plugin install ruby-rbs
+/plugin install ruby-rbs@stevegeek-marketplace
 ```
 
-Or use the interactive plugin menu:
+Or use the interactive plugin menu to browse and install:
 
 ```bash
-claude /plugin
+/plugin
 ```
 
 ### Option 2: Copy Skills Directly
@@ -42,21 +44,23 @@ If you prefer not to use the plugin system, copy the skills directly to your Cla
 git clone https://github.com/stevegeek/claude-ruby-plugin.git
 
 # Copy the skill to your global skills directory
-cp -r claude-ruby-plugin/skills/ruby-rbs ~/.claude/skills/
+cp -r claude-ruby-plugin/plugins/ruby-rbs/skills/ruby-rbs ~/.claude/skills/
 
 # Or copy to a project-specific location
-cp -r claude-ruby-plugin/skills/ruby-rbs .claude/skills/
+cp -r claude-ruby-plugin/plugins/ruby-rbs/skills/ruby-rbs .claude/skills/
 ```
 
-### Option 3: Project-Level Plugin
+### Option 3: Project-Level Configuration
 
-Add this plugin to your project's `.claude/settings.json`:
+Add this marketplace to your project's `.claude/settings.json`:
 
 ```json
 {
-  "plugins": {
-    "marketplaces": ["https://github.com/stevegeek/claude-ruby-plugin"],
-    "installed": ["ruby-rbs"]
+  "extraKnownMarketplaces": [
+    "stevegeek/claude-ruby-plugin"
+  ],
+  "enabledPlugins": {
+    "ruby-rbs@stevegeek-marketplace": true
   }
 }
 ```
@@ -148,10 +152,10 @@ Critically reviews RBS signatures for quality: suggests generics, replaces `unty
 Runtime tool that instruments code execution to discover actual types:
 
 ```bash
-ruby scripts/type_tracer.rb -c 'MyClass' -f json test/my_test.rb
+ruby plugins/ruby-rbs/scripts/type_tracer.rb -c 'MyClass' -f json test/my_test.rb
 ```
 
-See `skills/ruby-rbs/references/type-tracer.md` for details.
+See `plugins/ruby-rbs/skills/ruby-rbs/references/type-tracer.md` for details.
 
 ## Quick Examples
 
