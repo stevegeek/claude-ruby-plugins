@@ -1,6 +1,11 @@
 {
   "name": "stevegeek-marketplace",
-  "description": "Marketplace for Ruby related skills by Stephen",
+  "owner": {
+    "name": "Stephen"
+  },
+  "metadata": {
+    "description": "Marketplace for Ruby related skills"
+  },
   "plugins": [
     {
       "name": "ruby-rbs",
