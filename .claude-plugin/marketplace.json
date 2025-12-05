@@ -1,0 +1,5 @@
+{
+  "name": "stevegeek-marketplace",
+  "description": "Marketplace for Ruby related skills by Stephen",
+  "plugins": ["ruby-rbs"]
+}

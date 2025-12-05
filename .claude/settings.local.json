@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec steep check:*)",
+      "Bash(ruby:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

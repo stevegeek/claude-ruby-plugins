@@ -1,6 +1,6 @@
 {
   "name": "ruby-rbs",
   "version": "1.0.0",
-  "description": "Skills for writing Ruby RBS type signatures - both inline annotations and standalone .rbs files",
-  "author": "Claude Code Community"
+  "description": "Skills, commands, and agents for writing Ruby RBS type signatures - inline annotations, standalone .rbs files, and type maintenance",
+  "author": "https://github.com/stevegeek"
 }
