@@ -1,0 +1,8 @@
+class Container[T]
+  @items: Array[T]
+
+  def initialize: () -> void
+  def add: (T item) -> void
+  def get: (Integer index) -> T?
+  def each: () { (T) -> void } -> void
+end

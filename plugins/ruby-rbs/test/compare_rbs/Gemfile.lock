@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    logger (1.7.0)
+    minitest (5.26.2)
+    rbs (3.9.5)
+      logger
+
+PLATFORMS
+  aarch64-linux
+  ruby
+
+DEPENDENCIES
+  minitest
+  rbs
+
+BUNDLED WITH
+   2.6.9

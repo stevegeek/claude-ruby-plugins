@@ -1,0 +1,9 @@
+class User
+  attr_reader name: String
+  attr_reader email: String?
+
+  def initialize: (String, ?String?) -> void
+  def full_name: () -> String
+  def valid?: () -> bool
+  def extra_method: () -> void
+end

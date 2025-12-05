@@ -8,7 +8,7 @@ require_relative "sample_classes"
 
 class TypeTracerTest < Minitest::Test
   def setup
-    @tracer = TypeTracer.new(target_pattern: /TestSamples/)
+    @tracer = TypeTracer.new(class_pattern: /TestSamples/)
   end
 
   # === Basic Type Detection ===
@@ -80,7 +80,6 @@ class TypeTracerTest < Minitest::Test
 
     obs = @tracer.observations
     returns = obs["TestSamples::Collections#array_of_strings"][:returns]
-    # Should detect Array[String]
     assert returns.any? { |r| r.include?("Array") && r.include?("String") }
   end
 
@@ -179,7 +178,6 @@ class TypeTracerTest < Minitest::Test
 
     obs = @tracer.observations
     returns = obs["TestSamples::SpecialTypes#struct_example"][:returns]
-    # Should return the struct class name
     assert returns.any? { |r| r.include?("Person") || r.include?("Struct") }
   end
 
@@ -192,7 +190,6 @@ class TypeTracerTest < Minitest::Test
 
     obs = @tracer.observations
     args = obs["TestSamples::Formatter#format"][:args]
-    # Should capture keyword args
     assert args.any? { |a| a.any? { |param| param.include?("width") } }
   end
 
@@ -206,13 +203,26 @@ class TypeTracerTest < Minitest::Test
       rescue ArgumentError
         # Expected
       end
-      # This should still be tracked correctly
       validator.safe_validate("ok")
     end
 
     obs = @tracer.observations
-    # safe_validate should have a return recorded despite earlier exception
     assert obs.key?("TestSamples::Validator#safe_validate")
+  end
+
+  def test_exceptions_recorded
+    @tracer.trace do
+      validator = TestSamples::Validator.new
+      begin
+        validator.validate!(nil)
+      rescue ArgumentError
+        # Expected
+      end
+    end
+
+    obs = @tracer.observations
+    exceptions = obs["TestSamples::Validator#validate!"][:exceptions]
+    assert exceptions.any? { |e| e.include?("ArgumentError") }
   end
 
   # === JSON Output ===
@@ -231,6 +241,7 @@ class TypeTracerTest < Minitest::Test
     method_data = parsed["TestSamples::Calculator#add"]
     assert method_data.key?("args")
     assert method_data.key?("returns")
+    assert method_data.key?("returns_nil")
   end
 
   private

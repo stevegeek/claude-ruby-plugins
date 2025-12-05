@@ -1,0 +1,4 @@
+class Parser
+  def parse: (String input) -> Hash[Symbol, untyped]
+           | (String input, strict: bool) -> Hash[Symbol, untyped]
+end

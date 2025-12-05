@@ -192,6 +192,7 @@ See `references/validating-signatures.md` for full setup and patterns.
 - `references/type-syntax.md` - Complete type syntax reference
 - `references/steep-integration.md` - Steep setup, configuration, and commands
 - `references/validating-signatures.md` - Write test code to validate signatures with Steep
+- `references/comparing-signatures.md` - Compare standalone and generated RBS files
 - `references/rbs-test-instrumentation.md` - Runtime type checking with `rbs/test`
 - `references/type-tracer.md` - Discover types from runtime execution
 - `references/scaffolding.md` - Generate initial RBS from existing code

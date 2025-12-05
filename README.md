@@ -70,6 +70,10 @@ Validates and maintains existing RBS signatures. Runs `rbs validate`, `steep che
 
 Critically reviews RBS signatures for quality: suggests generics, replaces `untyped`, recommends supertypes/interfaces.
 
+### rbs-to-inline
+
+Converts standalone `.rbs` signature files into inline RBS annotations embedded in Ruby source files. Use when migrating from standalone to inline RBS approach. Validates the conversion by comparing generated signatures against originals, then backs up the original `.rbs` files.
+
 ## Commands
 
 ### `/write-rbs <path>`
@@ -80,17 +84,43 @@ Write standalone RBS signatures for Ruby files. Analyzes code, finds tests, opti
 
 Add inline RBS annotations to Ruby files using `rbs-inline` comment syntax.
 
+### `/convert-rbs-to-inline <rbs_file_or_pattern>...`
+
+Convert standalone `.rbs` files to inline RBS annotations. Supports multiple files and glob patterns. Validates conversions and backs up originals to `.rbs.bak`.
+
 ## Skill
 
 The `ruby-rbs` skill provides comprehensive RBS knowledge. It's easier to use a command or agent, but you can load the skill directly by asking Claude to use its RBS skill.
 
-## Type Tracer
+## Scripts
+
+### Type Tracer
 
 Runtime tool that instruments code execution to discover actual types:
 
 ```bash
 ruby plugins/ruby-rbs/scripts/type_tracer.rb -c 'MyClass' -f json test/my_test.rb
 ```
+
+### RBS Comparator
+
+Compare hand-written RBS files with generated ones (from `rbs-inline`) to verify consistency:
+
+```bash
+# Compare two specific files
+bundle exec ruby scripts/compare_rbs.rb sig/user.rbs sig/generated/user.rbs
+
+# Compare directories
+bundle exec ruby scripts/compare_rbs.rb --dir sig/ sig/generated/
+
+# JSON output for programmatic use
+bundle exec ruby scripts/compare_rbs.rb --json sig/user.rbs sig/generated/user.rbs
+
+# Strict mode (parameter names matter)
+bundle exec ruby scripts/compare_rbs.rb --strict-param-names sig/user.rbs sig/generated/user.rbs
+```
+
+By default, parameter names are ignored (e.g., `(String name)` == `(String)`). Use `--strict-param-names` for exact matching.
 
 ## Quick Examples
 
