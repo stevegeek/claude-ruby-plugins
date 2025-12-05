@@ -176,11 +176,68 @@ type result[T] = { success: true, value: T } | { success: false, error: String }
 type list[out T] = [T, list[T]] | nil
 ```
 
-## Annotations
+## Use Directive
+
+Import types to avoid fully-qualified names. Place at the top of RBS files:
 
 ```rbs
-%a{pure}                           # Pure function
-%a{deprecated}                     # Deprecated
-%a{steep:ignore}                   # Steep-specific
-%a{rbs:test:skip}                  # Skip runtime testing
+# Import single type
+use RBS::TypeName
+
+# Import with alias
+use RBS::TypeName as TN
+
+# Import all types from namespace
+use RBS::AST::*
+```
+
+After importing:
+
+```rbs
+use ActiveRecord::Base, ActiveRecord::Relation
+
+class User < Base                    # Instead of ActiveRecord::Base
+  def self.active: () -> Relation[User]
+end
+```
+
+## Annotations
+
+Metadata for declarations, members, and method types. Interpreted by tooling (Steep, rbs test).
+
+### Syntax Variants
+
+```rbs
+%a{annotation text}                # Using braces
+%a(annotation text)                # Using parentheses
+%a[annotation text]                # Using brackets
+%a|annotation text|                # Using pipes
+%a<annotation text>                # Using angle brackets
+```
+
+### Common Annotations
+
+```rbs
+# Steep annotations
+%a{steep:ignore}                   # Ignore type errors
+
+# RBS test annotations
+%a{rbs:test:skip}                  # Skip runtime testing for this method
+
+# Documentation annotations (tooling-dependent)
+%a{deprecated}                     # Mark as deprecated
+%a{deprecated: "Use #new_method instead"}
+```
+
+### Usage Examples
+
+```rbs
+class MyClass
+  # Skip runtime testing for complex method
+  %a{rbs:test:skip} def complex_method: (untyped) -> untyped
+
+  # Annotated method type (annotation applies to following overload)
+  def fetch: %a{deprecated} (Integer) -> String?
+           | (Integer, String default) -> String
+end
 ```

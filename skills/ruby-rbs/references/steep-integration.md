@@ -113,6 +113,8 @@ end
 
 ## RBS Collection Configuration
 
+RBS collection manages third-party gem type definitions, similar to Bundler for gems.
+
 ### rbs_collection.yaml
 
 ```yaml
@@ -129,21 +131,54 @@ sources:
 path: .gem_rbs_collection
 
 gems:
-  # Explicitly include
+  # Explicitly include a gem not in Gemfile.lock
   - name: csv
 
-  # Explicitly exclude
+  # Exclude a gem's RBS (useful for compatibility issues)
   - name: nokogiri
     ignore: true
+
+  # Include RBS for gem marked `require: false` in Gemfile
+  - name: rbs
+    ignore: false
 ```
+
+### Controlling RBS Installation
+
+Two ways to skip RBS for a gem:
+
+1. **In Gemfile** (recommended): `gem 'name', require: false`
+2. **In rbs_collection.yaml**: Add `ignore: true`
+
+Gems with `require: false` in Gemfile won't have RBS installed unless you add `ignore: false` in rbs_collection.yaml.
+
+### manifest.yaml (For Gem Authors)
+
+Declare implicit stdlib dependencies your gem uses:
+
+```yaml
+# sig/manifest.yaml
+dependencies:
+  - name: pathname
+  - name: json
+  - name: set
+```
+
+Place in `sig/manifest.yaml` for gems with bundled RBS, or `gems/GEM_NAME/VERSION/manifest.yaml` in gem_rbs_collection.
+
+### Files to Commit
+
+| File | Commit? | Notes |
+|------|---------|-------|
+| `rbs_collection.yaml` | Yes | Configuration |
+| `rbs_collection.lock.yaml` | Yes | Lock file for reproducibility |
+| `.gem_rbs_collection/` | No | Downloaded RBS files (add to .gitignore) |
 
 ### .gitignore
 
 ```gitignore
 /.gem_rbs_collection/
 ```
-
-Commit `rbs_collection.yaml` and `rbs_collection.lock.yaml`.
 
 ## Workflow Commands
 

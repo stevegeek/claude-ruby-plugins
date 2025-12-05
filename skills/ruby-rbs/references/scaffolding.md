@@ -2,6 +2,22 @@
 
 Generate initial RBS signatures from Ruby code using `rbs prototype` and TypeProf.
 
+To scaffold RBS for new files:
+
+```bash
+# Static analysis (fastest, but all types are untyped)
+bundle exec rbs prototype rb lib/literal/new_file.rb
+
+# TypeProf (infers actual types via abstract interpretation)
+typeprof lib/literal/new_file.rb
+
+# Runtime reflection (requires loading the code)
+bundle exec rbs prototype runtime --require-relative ./lib/literal --autoload "Literal::NewClass"
+```
+
+TypeProf provides the best type inference but may fail on newer Ruby syntax.
+
+
 ## rbs prototype rb (Static Analysis)
 
 Parses Ruby source files to generate signatures:
