@@ -69,85 +69,33 @@ Team members will automatically get the plugin when they trust the repository.
 
 ## Usage
 
-The skill activates automatically when you ask Claude Code to help with Ruby type signatures. It covers:
+### Commands
 
-- **Inline RBS** - Type annotations as comments in Ruby files using `rbs-inline`
-- **Standalone RBS files** - Separate `.rbs` signature files in a `sig/` directory
-- **Steep integration** - Type checker setup and configuration
-- **Scaffolding** - Generating initial types from existing code
-
-For example:
-
-```
-> I want you to use your RBS skill to write inline RBS types for all ruby files under lib/. Avoid using untyped. You can scaffold and enhance. Remember to check with steep as you go.
-```
-
-Claude will then prompt you to confirm loading the skill:
-
-```
-> The "ruby-rbs" skill is running
-
-● Now I'll create the inline RBS
-...
-```
-
-## Plugin Structure
-
-```
-claude-ruby-plugin/
-├── .claude-plugin/
-│   ├── plugin.json              # Plugin metadata
-│   └── marketplace.json         # Marketplace manifest
-├── skills/
-│   └── ruby-rbs/
-│       ├── SKILL.md             # Main skill entry point
-│       ├── subskills/
-│       │   ├── inline/SKILL.md  # Inline RBS annotations
-│       │   └── rbs-files/SKILL.md # Standalone .rbs files
-│       └── references/
-│           ├── type-syntax.md       # Complete type syntax
-│           ├── patterns.md          # Patterns and gotchas
-│           ├── steep-integration.md # Steep setup
-│           ├── scaffolding.md       # Generate RBS from code
-│           ├── runtime-testing.md   # RBS runtime testing
-│           ├── testing-signatures.md # Testing with Steep
-│           ├── troubleshooting.md   # Common issues
-│           └── type-tracer.md       # Type tracer usage
-├── commands/
-│   ├── write-rbs.md             # Write standalone .rbs files
-│   └── write-inline-rbs.md      # Write inline annotations
-├── agents/
-│   ├── rbs-maintainer.md        # Validate and maintain RBS
-│   └── rbs-reviewer.md          # Review RBS quality
-├── scripts/
-│   └── type_tracer.rb           # Runtime type tracer
-└── test/                        # Example typed projects
-    ├── inline/                  # Inline RBS examples
-    ├── standalone/              # Standalone RBS examples
-    └── type_tracer/             # Type tracer tests
-```
-
-## Commands
-
-### `/write-rbs <path>`
+#### `/write-rbs <path>`
 
 Write standalone RBS signatures for Ruby files. Analyzes code, finds tests, optionally traces types, and creates `sig/*.rbs` files.
 
-### `/write-inline-rbs <path>`
+#### `/write-inline-rbs <path>`
 
 Add inline RBS annotations to Ruby files using `rbs-inline` comment syntax.
 
-## Agents
+### Agents
 
-### rbs-maintainer
+#### rbs-maintainer
 
 Validates and maintains existing RBS signatures. Runs `rbs validate`, `steep check`, finds gaps, and fixes issues.
 
-### rbs-reviewer
+#### rbs-reviewer
 
 Critically reviews RBS signatures for quality: suggests generics, replaces `untyped`, recommends supertypes/interfaces.
 
-## Type Tracer
+### RBS writing Skill
+
+It is easier to use a command or agent but you can also load the skill directly.
+
+The skill activates automatically when you ask Claude Code to help with Ruby type signatures.
+
+### Type Tracer
 
 Runtime tool that instruments code execution to discover actual types:
 

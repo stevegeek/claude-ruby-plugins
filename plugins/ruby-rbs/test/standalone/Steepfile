@@ -1,0 +1,10 @@
+D = Steep::Diagnostic
+
+target :app do
+  check "lib"
+  signature "sig"
+
+  library "json", "time", "fileutils"
+
+  configure_code_diagnostics(D::Ruby.strict)
+end
