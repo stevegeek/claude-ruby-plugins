@@ -148,12 +148,55 @@ end
 3. **Progress inward** - Add types to private methods over time
 4. **Add to CI early** - Catch regressions immediately
 
+## Testing Signatures
+
+Verify RBS signatures are correct by writing Ruby test files that exercise the typed APIs:
+
+```
+my_gem/
+├── sig/
+│   └── my_gem.rbs          # Your RBS signatures
+└── test/
+    └── rbs/                # Type checking test directory
+        ├── Steepfile       # Points to ../../sig
+        └── lib/
+            └── usage.rb    # Ruby code exercising the API
+```
+
+Write test files that use your gem's public API:
+
+```ruby
+# test/rbs/lib/usage.rb
+require "my_gem"
+
+# Test instantiation and methods
+user = MyGem::User.new("Alice", "alice@example.com")
+name = user.name          # Verifies return type
+user.update(name: "Bob")  # Verifies argument types
+
+# Test from documentation examples
+client = MyGem::Client.new(api_key: "xxx")
+response = client.get("/users")
+```
+
+Run `bundle exec steep check` in the test directory. Errors reveal signature problems:
+- Wrong argument types
+- Missing optional parameters
+- Incorrect return types
+- Generic type mismatches
+
+See `references/validating-signatures.md` for full setup and patterns.
+
 ## References
 
 - `references/type-syntax.md` - Complete type syntax reference
-- `references/steep-integration.md` - Full Steep setup and configuration
-- `references/patterns.md` - Common patterns and best practices
+- `references/steep-integration.md` - Steep setup, configuration, and commands
+- `references/validating-signatures.md` - Write test code to validate signatures with Steep
+- `references/rbs-test-instrumentation.md` - Runtime type checking with `rbs/test`
+- `references/type-tracer.md` - Discover types from runtime execution
 - `references/scaffolding.md` - Generate initial RBS from existing code
+- `references/patterns.md` - Common patterns and best practices
+- `references/troubleshooting.md` - Gotchas and troubleshooting guide
 
 ## External Resources
 
