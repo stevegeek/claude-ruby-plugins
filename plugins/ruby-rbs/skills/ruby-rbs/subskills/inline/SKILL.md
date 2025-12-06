@@ -129,6 +129,16 @@ class Container
 end
 ```
 
+## Generic Module Includes
+
+Specify type parameters for generic modules using `#[Type]`:
+
+```ruby
+include Enumerable #[String]
+include Comparable #[self]
+include MyGeneric #[Integer | nil]
+```
+
 ## Raw RBS for DSLs (`# @rbs!`)
 
 Use for DSL-generated methods or interface declarations:
