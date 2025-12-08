@@ -84,8 +84,8 @@ After converting all files:
 # Generate RBS from inline annotations
 bundle exec rbs-inline --output lib
 
-# Compare original with generated
-bundle exec ruby scripts/compare_rbs.rb --dir sig/ sig/generated/
+# Compare original with generated (first locate compare_rbs.rb in plugin directory using find)
+bundle exec ruby <COMPARE_SCRIPT> --dir sig/ sig/generated/
 
 # Run type check
 bundle exec steep check

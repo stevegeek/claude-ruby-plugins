@@ -171,15 +171,17 @@ This creates `sig/generated/*.rbs` files from inline annotations.
 
 Use the comparison script to verify the generated RBS matches the original:
 
+**Finding the script:** First locate `compare_rbs.rb` in the plugin directory using `find`, then use its absolute path.
+
 ```bash
 # Compare a single file
-bundle exec ruby scripts/compare_rbs.rb sig/user.rbs sig/generated/user.rbs
+bundle exec ruby <COMPARE_SCRIPT> sig/user.rbs sig/generated/user.rbs
 
 # Compare entire directories
-bundle exec ruby scripts/compare_rbs.rb --dir sig/ sig/generated/
+bundle exec ruby <COMPARE_SCRIPT> --dir sig/ sig/generated/
 
 # JSON output for detailed analysis
-bundle exec ruby scripts/compare_rbs.rb --json sig/user.rbs sig/generated/user.rbs
+bundle exec ruby <COMPARE_SCRIPT> --json sig/user.rbs sig/generated/user.rbs
 ```
 
 The script compares:

@@ -45,7 +45,8 @@ Read tests to understand:
 If tests exist, consider running the type tracer:
 
 ```bash
-ruby scripts/type_tracer.rb -c 'TargetClass' -f json path/to/test.rb
+# First locate type_tracer.rb in plugin directory using find
+ruby <TRACER_SCRIPT> -c 'TargetClass' -f json path/to/test.rb
 ```
 
 Review tracer output to inform type decisions.

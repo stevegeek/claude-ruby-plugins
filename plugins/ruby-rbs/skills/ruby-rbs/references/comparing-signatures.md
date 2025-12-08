@@ -1,21 +1,23 @@
 # Comparing RBS Signatures
 
-Use `scripts/compare_rbs.rb` to verify that generated RBS files (from `rbs-inline`) match original hand-written signatures. This is essential when converting from standalone RBS to inline annotations.
+Use `compare_rbs.rb` to verify that generated RBS files (from `rbs-inline`) match original hand-written signatures. This is essential when converting from standalone RBS to inline annotations.
+
+**Finding the script:** Before running, locate the script by searching for `compare_rbs.rb` in the plugin directory. Use `find` or similar to get the absolute path, then substitute `<COMPARE_SCRIPT>` in the examples below.
 
 ## Usage
 
 ```bash
 # Compare two specific files
-bundle exec ruby scripts/compare_rbs.rb sig/user.rbs sig/generated/user.rbs
+bundle exec ruby <COMPARE_SCRIPT> sig/user.rbs sig/generated/user.rbs
 
 # Compare all .rbs files in directories
-bundle exec ruby scripts/compare_rbs.rb --dir sig/ sig/generated/
+bundle exec ruby <COMPARE_SCRIPT> --dir sig/ sig/generated/
 
 # JSON output for programmatic use
-bundle exec ruby scripts/compare_rbs.rb --json sig/user.rbs sig/generated/user.rbs
+bundle exec ruby <COMPARE_SCRIPT> --json sig/user.rbs sig/generated/user.rbs
 
 # Quiet mode (only output on failure)
-bundle exec ruby scripts/compare_rbs.rb --quiet --dir sig/ sig/generated/
+bundle exec ruby <COMPARE_SCRIPT> --quiet --dir sig/ sig/generated/
 ```
 
 ## Options
@@ -35,7 +37,7 @@ By default, the script ignores parameter names when comparing signatures. This m
 Use `--strict-param-names` if you want exact matching including parameter names:
 
 ```bash
-bundle exec ruby scripts/compare_rbs.rb --strict-param-names sig/user.rbs sig/generated/user.rbs
+bundle exec ruby <COMPARE_SCRIPT> --strict-param-names sig/user.rbs sig/generated/user.rbs
 ```
 
 ## Exit Codes
@@ -108,7 +110,7 @@ Some RBS files have differences ❌
 2. **Generate RBS** from inline: `bundle exec rbs-inline --output lib`
 3. **Compare** original with generated:
    ```bash
-   bundle exec ruby scripts/compare_rbs.rb sig/user.rbs sig/generated/user.rbs
+   bundle exec ruby <COMPARE_SCRIPT> sig/user.rbs sig/generated/user.rbs
    ```
 4. **Fix any differences** by adjusting inline annotations
 5. **Re-generate and re-compare** until they match

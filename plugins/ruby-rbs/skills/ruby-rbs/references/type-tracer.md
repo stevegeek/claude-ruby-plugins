@@ -4,9 +4,7 @@ The `type_tracer.rb` script instruments Ruby code at runtime to capture actual t
 
 ## Location
 
-```
-scripts/type_tracer.rb
-```
+**Finding the script:** Before running, locate `type_tracer.rb` in the plugin directory using `find` or similar to get the absolute path. Substitute `<TRACER_SCRIPT>` in the examples below.
 
 ## Usage
 
@@ -14,16 +12,16 @@ scripts/type_tracer.rb
 
 ```bash
 # Trace by class/module name pattern
-ruby scripts/type_tracer.rb -c 'MyApp::' test/my_test.rb
+ruby <TRACER_SCRIPT> -c 'MyApp::' test/my_test.rb
 
 # Trace by file path pattern
-ruby scripts/type_tracer.rb -p 'lib/my_app' test/my_test.rb
+ruby <TRACER_SCRIPT> -p 'lib/my_app' test/my_test.rb
 
 # Output as JSON for programmatic use
-ruby scripts/type_tracer.rb -c 'User' -f json test/my_test.rb > types.json
+ruby <TRACER_SCRIPT> -c 'User' -f json test/my_test.rb > types.json
 
 # Show help
-ruby scripts/type_tracer.rb --help
+ruby <TRACER_SCRIPT> --help
 ```
 
 ### Programmatic
@@ -173,7 +171,7 @@ If no tests exist, write a small script that exercises the public API.
 ### Step 3: Run Tracer
 
 ```bash
-ruby scripts/type_tracer.rb -c 'MyApp::User' -f json test/user_test.rb > user_types.json
+ruby <TRACER_SCRIPT> -c 'MyApp::User' -f json test/user_test.rb > user_types.json
 ```
 
 ### Step 4: Review Output
