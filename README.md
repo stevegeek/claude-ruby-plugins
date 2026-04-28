@@ -29,6 +29,7 @@ Then browse and install plugins:
 ## Available Plugins
 
 - **ruby-rbs** - RBS type signature writing, reviewing, and maintenance
+- **literal** - Skill for the [Literal gem](https://literal.fun) by Joel Drapper: runtime-checked types, properties, structs, data, value objects, enums, flags, generic collections, results, and serialization
 
 ---
 
@@ -158,6 +159,76 @@ end
 - [Climbing Steep hills, or adopting Ruby 3 types with RBS](https://evilmartians.com/chronicles/climbing-steep-hills-or-adopting-ruby-types) by Evil Martians
 - [RBS official documentation](https://github.com/ruby/rbs/tree/master/docs)
 - [rbs-inline wiki](https://github.com/soutaro/rbs-inline/wiki)
+
+---
+
+# literal
+
+A skill for working with the [Literal gem](https://literal.fun) by [Joel Drapper](https://github.com/joeldrapper). Literal is a runtime type system for Ruby covering typed properties, structured objects (`Literal::Struct`, `Literal::Data`), value objects, enums, bitfield flags, generic collections, result monads, and JSON-style serialization.
+
+## What is Literal?
+
+Literal checks types when objects are constructed and methods are called - no separate type checker needed. Its central idea is that a "type" is anything that responds to `===`, so plain Ruby classes, ranges, regexps, lambdas, and Literal's own `_*` matchers all compose. The gemspec one-liner says it best:
+
+> Enums, properties, generics, structured objects and runtime type checking.
+
+- Repo: <https://github.com/joeldrapper/literal>
+- Docs: <https://literal.fun>
+- Requires Ruby >= 3.1
+
+## Installation
+
+```bash
+/plugin install literal@stevegeek-marketplace
+```
+
+Or in `.claude/settings.json`:
+
+```json
+{
+  "enabledPlugins": {
+    "literal@stevegeek-marketplace": true
+  }
+}
+```
+
+## Skill
+
+The plugin contains one skill, `literal`, with progressive disclosure: a short top-level overview lists the main features and points to detailed reference files for each. Claude loads only the references it needs for the task at hand.
+
+References cover:
+
+- **types.md** - the `_Foo` type-matcher catalogue (`_Array`, `_Union`, `_Map`, `_Constraint`, etc.)
+- **properties.md** - `prop` / `prop?`, kinds, defaults, coercion, predicates, writers, introspection
+- **struct-and-data.md** - `Literal::Struct` (mutable) vs `Literal::Data` (frozen), when to pick which
+- **value-and-delegator.md** - `Literal::Value(t)` and `Literal::Delegator(t)` for typed value objects
+- **enum.md** - `Literal::Enum` members, indexes, coercion, ordering, predicates, pattern matching
+- **flags.md** - `Literal::Flags8/16/32/64` bitfield flags
+- **collections.md** - `Literal::Array(t)` / `Set(t)` / `Hash(k,v)` / `Tuple(*types)` generic containers
+- **result.md** - `Literal::Result`, `Success`, `Failure`, `try`, `and_then`, `also`, `handle`
+- **serialization.md** - `SerializationContext` and the bundled serializers
+- **runtime-checks.md** - `Literal.check`, `Literal.subtype?`, `TypeError`, `Brand`
+- **rails.md** - Rails / ActiveModel / ActiveRecord integration
+- **patterns.md** - idioms, gotchas, and "why does this surprise me" notes
+
+## Quick example
+
+```ruby
+require "literal"
+
+class User < Literal::Data
+  extend Literal::Types
+
+  prop :id, Integer
+  prop :name, String
+  prop :email, _Nilable(String)
+  prop :tags, _Array(Symbol), default: -> { [] }
+end
+
+User.new(id: 1, name: "Alice", tags: [:admin])
+# raises Literal::TypeError - id must be Integer, not "1"
+User.new(id: "1", name: "Alice")
+```
 
 ---
 
