@@ -12,6 +12,12 @@
       "source": "./plugins/ruby-rbs",
       "description": "Skills, commands, and agents for writing Ruby RBS type signatures",
       "version": "1.0.0"
+    },
+    {
+      "name": "literal",
+      "source": "./plugins/literal",
+      "description": "Skill for the Literal gem (https://literal.fun) - runtime-checked types, properties, structs, data, value objects, enums, flags, generic collections, results, and serialization",
+      "version": "1.0.0"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "name": "literal",
+  "version": "1.0.0",
+  "description": "Skill for the Literal gem by Joel Drapper - runtime-checked types, properties, structs, data, value objects, enums, flags, generic collections, results, and serialization",
+  "author": {
+    "name": "Stephen",
+    "url": "https://github.com/stevegeek"
+  }
+}
